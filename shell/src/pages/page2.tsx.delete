@@ -1,0 +1,24 @@
+import React, { Suspense } from 'react';
+import { useRouter } from 'next/router';
+const Child = React.lazy(() => import("child2/pages/page2"))
+  
+export default function Page() {
+  const router = useRouter();
+  const { slug } = router.query; 
+  const [appName, pageName] = Array.isArray(slug) ? slug : []; 
+  //const Child = React.lazy(() => import("child2/pages/page2"));
+  //const debugMessage = slug ? `Loading content for slug: ${slug}` : 'No slug provided.';
+  //const Child = React.lazy(() => import(`${appName}/pages/${pageName}`));
+  console.log(`appName: ${appName} pageName: ${pageName}`);
+
+  console.log(slug ? `Loading content for slug: ${slug}` : 'No slug provided.');
+
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Child/> 
+      </Suspense>
+     
+  );
+}
+
+//[...slug].tsx
